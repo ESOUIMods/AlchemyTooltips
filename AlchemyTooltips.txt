@@ -1,15 +1,12 @@
 ## Title: AlchemyTooltips
 ## Author: Hyperioxes
 ## Description: Displays additional information in potion, poison and alchemy master writs' tooltips. Changes names and icons of potions and poisons
-## Version: 1.15a
-## DependsOn: LibPrice LibAddonMenu-2.0 LibAlchemy
+## Version: 1.17
+## AddOnVersion: 117
 ## SavedVariables: AlchemyTooltipsSV
-## APIVersion: 100033
-
-
-
-
-
+## APIVersion: 101037 101038
+## DependsOn: LibPrice>=70410 LibAddonMenu-2.0>=34 LibAlchemy>=15
+## OptionalDependsOn: MasterMerchant TamrielTradeCentre ArkadiusTradeTools
 
 AlchemyTooltips.lua
 Settings.lua
@@ -20,4 +17,3 @@ TooltipHooks.lua
 ItemHooks.lua
 languages/en.lua
 languages/$(language).lua
-
