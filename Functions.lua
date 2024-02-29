@@ -1,7 +1,7 @@
 ATT_Functions = {}
 
 function ATT_Functions:checkPotion(itemLink)
-  if not savedVars.useTooltips then
+  if not ATT_savedVars.useTooltips then
     return nil
   end
   if GetItemLinkItemType(itemLink) == ITEMTYPE_MASTER_WRIT then
@@ -77,7 +77,7 @@ function ATT_Functions:AddPotionInfo(tooltip, type)
       AddDivider(tooltip)
       AddLine(tooltip, GetString(AT_CheapestCombination))
 
-      if savedVars.useOld then
+      if ATT_savedVars.useOld then
         AddVerticalPadding(tooltip, 8)
         AddLine(tooltip, ATT_Functions:PrintCombination(type[1]))
         AddVerticalPadding(tooltip, 16)
@@ -91,7 +91,7 @@ function ATT_Functions:AddPotionInfo(tooltip, type)
 
       end
 
-      if savedVars.showCraftCost then
+      if ATT_savedVars.showCraftCost then
         AddDivider(tooltip)
         AddLine(tooltip, GetString(AT_CraftingCost) .. type[2] .. ' |t16:16:EsoUI/Art/currency/currency_gold.dds|t')
       end
@@ -121,7 +121,7 @@ function ATT_Functions:getPotionQualityBasedOnCraftingCost(craftingCost)
     return 1
   end
   for k = 1, 5 do
-    if craftingCost < savedVars.craftingCostQualityBrackets[k] then
+    if craftingCost < ATT_savedVars.craftingCostQualityBrackets[k] then
       return k
     end
   end
@@ -136,11 +136,11 @@ function ATT_Functions:processItemLink(link)
   if effect1 ~= 0 then
     local BestCombination = LibAlchemy:getBestCombination({ LibAlchemy.effectsByWritID[effect1], LibAlchemy.effectsByWritID[effect2], LibAlchemy.effectsByWritID[effect3], LibAlchemy.effectsByWritID[effect4] }) or 0
     local craftingCost = LibAlchemy:getCraftingCost(BestCombination, link) or 0
-    local newText = "(" .. savedVars.effectsByWritIDShort[effect1]
+    local newText = "(" .. ATT_savedVars.effectsByWritIDShort[effect1]
     if effect2 ~= 0 then
-      newText = newText .. "/" .. savedVars.effectsByWritIDShort[effect2]
+      newText = newText .. "/" .. ATT_savedVars.effectsByWritIDShort[effect2]
       if effect3 ~= 0 then
-        newText = newText .. "/" .. savedVars.effectsByWritIDShort[effect3]
+        newText = newText .. "/" .. ATT_savedVars.effectsByWritIDShort[effect3]
       end
     end
     newText = newText .. ")"
@@ -168,13 +168,13 @@ end
 
 function ATT_Functions:countPricingAddons()
   local counter = 0
-  if savedVars.TTCuse and LibPrice.ItemLinkToPriceGold("|H0:item:30148:30:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h", "ttc") ~= nil then
+  if ATT_savedVars.TTCuse and LibPrice.ItemLinkToPriceGold("|H0:item:30148:30:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h", "ttc") ~= nil then
     counter = counter + 1
   end
-  if savedVars.MMuse and LibPrice.ItemLinkToPriceGold("|H0:item:30148:30:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h", "mm") ~= nil then
+  if ATT_savedVars.MMuse and LibPrice.ItemLinkToPriceGold("|H0:item:30148:30:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h", "mm") ~= nil then
     counter = counter + 1
   end
-  if savedVars.ATTuse and LibPrice.ItemLinkToPriceGold("|H0:item:30148:30:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h", "att") ~= nil then
+  if ATT_savedVars.ATTuse and LibPrice.ItemLinkToPriceGold("|H0:item:30148:30:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h|h", "att") ~= nil then
     counter = counter + 1
   end
   return counter
@@ -182,14 +182,14 @@ end
 
 function ATT_Functions:GeneratePrice(itemLink)
   result = 0
-  if savedVars.TTCuse == true and LibPrice.ItemLinkToPriceGold(itemLink, "ttc") ~= nil then
-    result = result + LibPrice.ItemLinkToPriceGold(itemLink, "ttc") * savedVars.TTCMultiplier
+  if ATT_savedVars.TTCuse == true and LibPrice.ItemLinkToPriceGold(itemLink, "ttc") ~= nil then
+    result = result + LibPrice.ItemLinkToPriceGold(itemLink, "ttc") * ATT_savedVars.TTCMultiplier
   end
-  if savedVars.MMuse == true and LibPrice.ItemLinkToPriceGold(itemLink, "mm") ~= nil then
-    result = result + LibPrice.ItemLinkToPriceGold(itemLink, "mm") * savedVars.MMMultiplier
+  if ATT_savedVars.MMuse == true and LibPrice.ItemLinkToPriceGold(itemLink, "mm") ~= nil then
+    result = result + LibPrice.ItemLinkToPriceGold(itemLink, "mm") * ATT_savedVars.MMMultiplier
   end
-  if savedVars.ATTuse == true and LibPrice.ItemLinkToPriceGold(itemLink, "att") ~= nil then
-    result = result + LibPrice.ItemLinkToPriceGold(itemLink, "att") * savedVars.ATTMultiplier
+  if ATT_savedVars.ATTuse == true and LibPrice.ItemLinkToPriceGold(itemLink, "att") ~= nil then
+    result = result + LibPrice.ItemLinkToPriceGold(itemLink, "att") * ATT_savedVars.ATTMultiplier
   end
   return result / ATT_Functions:countPricingAddons()
 

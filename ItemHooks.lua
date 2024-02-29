@@ -6,22 +6,22 @@ local function ItemHook(functionName, itemLinkFunction, exception, tableOfOrder)
     if GetItemLinkItemType(link) == ITEMTYPE_POISON or GetItemLinkItemType(link) == ITEMTYPE_POTION then
       local newText, qualityNumber, iconTexture = ATT_Functions:processItemLink(link)
       if exception == "Quality" then
-        if savedVars.useCustomQualities then
+        if ATT_savedVars.useCustomQualities then
           return qualityNumber
         end
       elseif exception == "Name" then
-        if savedVars.useCustomNames then
+        if ATT_savedVars.useCustomNames then
           return newText
         end
       else
         local data = { old(...) } --{icon,name,quality}
-        if iconTexture ~= 0 and savedVars.useCustomIcons then
+        if iconTexture ~= 0 and ATT_savedVars.useCustomIcons then
           data[tableOfOrder[1]] = iconTexture
         end
-        if savedVars.useCustomNames then
+        if ATT_savedVars.useCustomNames then
           data[tableOfOrder[2]] = newText
         end
-        if qualityNumber ~= 0 and savedVars.useCustomQualities then
+        if qualityNumber ~= 0 and ATT_savedVars.useCustomQualities then
           data[tableOfOrder[3]] = qualityNumber
         end
         return unpack(data)
@@ -38,7 +38,7 @@ local function ItemHookIcon()
     local link = GetSlotItemLink(...)
     if GetItemLinkItemType(link) == ITEMTYPE_POISON or GetItemLinkItemType(link) == ITEMTYPE_POTION then
       local iconTexture = ATT_Functions:GetCustomIconFromItemLink(link)
-      if iconTexture and savedVars.useCustomIcons then
+      if iconTexture and ATT_savedVars.useCustomIcons then
         return iconTexture
       end
     end
@@ -53,7 +53,7 @@ local function ItemHookQuality()
     local link = GetSlotItemLink(...)
     if GetItemLinkItemType(link) == ITEMTYPE_POISON or GetItemLinkItemType(link) == ITEMTYPE_POTION then
       local quality = ATT_Functions:GetCustomQualityFromItemLink(link)
-      if quality and savedVars.useCustomQualities then
+      if quality and ATT_savedVars.useCustomQualities then
         return quality
       end
     end
@@ -69,7 +69,7 @@ local function ItemHookAttachedIcon()
     local link = GetItemLink(data[1], data[2])
     if GetItemLinkItemType(link) == ITEMTYPE_POISON or GetItemLinkItemType(link) == ITEMTYPE_POTION then
       local iconTexture = ATT_Functions:GetCustomIconFromItemLink(link)
-      if iconTexture and savedVars.useCustomIcons then
+      if iconTexture and ATT_savedVars.useCustomIcons then
         data[3] = iconTexture
         return unpack(data)
       end
