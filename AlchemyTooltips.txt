@@ -5,7 +5,7 @@
 ## AddOnVersion: 119
 ## SavedVariables: AlchemyTooltipsSV
 ## APIVersion: 101040 101041
-## DependsOn: LibPrice>=70410 LibAddonMenu-2.0>=34 LibAlchemy>=15
+## DependsOn: LibPrice>=70410 LibAddonMenu-2.0>=36 LibAlchemy>=15
 ## OptionalDependsOn: MasterMerchant TamrielTradeCentre ArkadiusTradeTools
 
 languages/en.lua
